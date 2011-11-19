@@ -18,6 +18,11 @@
         <property name="order" value="0" />
     </bean> 
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="customArgumentResolvers">
+            <list>
+                <bean class="shopping.web.client.ClientArgumentsResolver" />
+            </list>
+        </property>
         <property name="order" value="0" />
     </bean>
 

@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.context.request.WebRequest;
 
 import shopping.domain.showcase.AlbumBestSeller;
 import shopping.domain.showcase.BookBestSeller;
@@ -18,13 +17,9 @@ import shopping.service.showcase.bestseller.AlbumBestSellerService;
 import shopping.service.showcase.bestseller.BookBestSellerService;
 import shopping.service.showcase.bestseller.MovieBestSellerService;
 import shopping.web.client.Client;
-import shopping.web.client.ClientFactory;
 
 @Controller
 public class BestSellerController {
-    
-    @Inject
-    ClientFactory clientFactory;
     
     @Inject
     BookBestSellerService bookBestSellerService;
@@ -52,9 +47,7 @@ public class BestSellerController {
     
     
     @RequestMapping(value="/showcase/bestseller", method=RequestMethod.GET)
-    public String bestSeller(WebRequest webRequest, Model model) {
-        Client client = clientFactory.create(webRequest);
-
+    public String bestSeller(Client client, Model model) {
         if(!client.isPhone()) {
             int latestBestsellerSize = client.isTablet() ? tabletLatestBestsellerSize : etcLatestBestsellerSize;
     
@@ -67,9 +60,7 @@ public class BestSellerController {
     }
     
     @RequestMapping(value="/showcase/bestseller/book", method=RequestMethod.GET)
-    public String bookBestSeller(@ModelAttribute("condition") BestSellerCondition condition, WebRequest webRequest, Model model) {
-        Client client = clientFactory.create(webRequest);
-        
+    public String bookBestSeller(@ModelAttribute("condition") BestSellerCondition condition, Client client, Model model) {
         if(condition.isEmpty())
             setBestSellerConditionDefaultValue(client, condition);
         
@@ -83,9 +74,7 @@ public class BestSellerController {
     }
 
     @RequestMapping(value="/showcase/bestseller/album", method=RequestMethod.GET)
-    public String albumBestSeller(BestSellerCondition condition, WebRequest webRequest, Model model) {
-        Client client = clientFactory.create(webRequest);
-
+    public String albumBestSeller(BestSellerCondition condition, Client client, Model model) {
         if(condition.isEmpty())
             setBestSellerConditionDefaultValue(client, condition);
         
@@ -99,9 +88,7 @@ public class BestSellerController {
     }
     
     @RequestMapping(value="/showcase/bestseller/movie", method=RequestMethod.GET)
-    public String movieBestSeller(BestSellerCondition condition, WebRequest webRequest, Model model) {
-        Client client = clientFactory.create(webRequest);
-
+    public String movieBestSeller(BestSellerCondition condition, Client client, Model model) {
         if(condition.isEmpty())
             setBestSellerConditionDefaultValue(client, condition);
             
