@@ -7,13 +7,9 @@
 <title>Spring MVC Showcase</title>
 <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
-    });
-</script>
 </head>
 <body>
-<h3>홈 / etc</h3>
+<h3>홈 / tablet & etc</h3>
 <a href='<c:url value="/showcase/bestseller" />'>베스트셀러</a>
 </body>
 </html>

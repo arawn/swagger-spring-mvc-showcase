@@ -13,7 +13,7 @@
 </script>
 </head>
 <body>
-<h3><a href='<c:url value="/" />'>홈</a> / 베스트셀러 / tablet</h3>
+<h3><a href='<c:url value="/" />'>홈</a> / 베스트셀러 / tablet & etc</h3>
 <hr />
 <a href='<c:url value="/showcase/bestseller/book" />'>책</a> | 
 <a href='<c:url value="/showcase/bestseller/album" />'>음반</a> | 

@@ -7,10 +7,6 @@
 <title>Spring MVC Showcase</title>
 <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
-    });
-</script>
 </head>
 <body>
 <h3>홈 / phone</h3>

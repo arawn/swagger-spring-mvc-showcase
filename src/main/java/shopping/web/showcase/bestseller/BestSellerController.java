@@ -59,7 +59,7 @@ public class BestSellerController {
             model.addAttribute("movieBestSellers", movieBestSellerService.getLatestBestSellers(latestBestsellerSize));
         }
         
-        return "/bestseller/bestseller_" + client.getClientType().getCode();
+        return "/bestseller/bestseller";
     }
     
     @RequestMapping(value="/showcase/bestseller/{productType}", method=RequestMethod.GET)
@@ -77,7 +77,7 @@ public class BestSellerController {
         model.addAttribute("bestSellers", page.getContent());
         model.addAttribute("hasNextPage", page.hasNextPage());
         
-        return "/bestseller/" + productType.getCode() + "_" + client.getClientType().getCode();
+        return "/bestseller/" + productType.getCode();
     }
 
     private void setBestSellerConditionDefaultValue(Client client, BestSellerCondition condition) {
