@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import shopping.domain.product.ProductType;
 import shopping.domain.showcase.MovieBestSeller;
 import shopping.repositories.showcase.bestseller.MovieBestSellerRepository;
 
@@ -19,6 +20,11 @@ public class MovieBestSellerService implements BestSellerService<MovieBestSeller
 
     @Inject
     MovieBestSellerRepository movieBestSellerRepository;
+    
+    @Override
+    public ProductType getType() {
+        return ProductType.MOVIE;
+    }
     
     @Override
     public List<MovieBestSeller> getLatestBestSellers(int size) {

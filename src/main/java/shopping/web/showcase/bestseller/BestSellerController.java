@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import shopping.domain.product.ProductType;
-import shopping.domain.showcase.BestSeller;
 import shopping.service.showcase.bestseller.AlbumBestSellerService;
+import shopping.service.showcase.bestseller.BestSellerServiceLocator;
 import shopping.service.showcase.bestseller.BookBestSellerService;
 import shopping.service.showcase.bestseller.MovieBestSellerService;
 import shopping.web.client.Client;
@@ -29,6 +29,9 @@ public class BestSellerController {
     
     @Inject
     MovieBestSellerService movieBestSellerService;
+    
+    @Inject
+    BestSellerServiceLocator bestSellerServiceLocator;
     
     
     @Value("#{viewConfigProperties['phone.latest.bestseller.size']}")
@@ -68,21 +71,9 @@ public class BestSellerController {
         if(condition.isEmpty())
             setBestSellerConditionDefaultValue(client, condition);
         
-        Page<? extends BestSeller<?>> page = null;
+        Page<?> page = bestSellerServiceLocator.getBestSellerService(productType).findBestSellers(
+                condition.getYear(), condition.getMonth(), condition.getPage(), condition.getSize());
 
-        if(productType.equals(ProductType.BOOK)) {
-            page = bookBestSellerService.findBestSellers(
-                    condition.getYear(), condition.getMonth(), condition.getPage(), condition.getSize());
-        } else if(productType.equals(ProductType.ALBUM)) {
-            page = albumBestSellerService.findBestSellers(
-                    condition.getYear(), condition.getMonth(), condition.getPage(), condition.getSize());
-        } else if(productType.equals(ProductType.MOVIE)) {
-            page = movieBestSellerService.findBestSellers(
-                    condition.getYear(), condition.getMonth(), condition.getPage(), condition.getSize());
-        } else {
-            throw new IllegalArgumentException(productType + "은 판매하지 않습니다.");
-        }
-        
         model.addAttribute("bestSellers", page.getContent());
         model.addAttribute("hasNextPage", page.hasNextPage());
         

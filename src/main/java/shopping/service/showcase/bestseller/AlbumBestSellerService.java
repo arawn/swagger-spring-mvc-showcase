@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import shopping.domain.product.ProductType;
 import shopping.domain.showcase.AlbumBestSeller;
 import shopping.repositories.showcase.bestseller.AlbumBestSellerRepository;
 
@@ -19,6 +20,11 @@ public class AlbumBestSellerService implements BestSellerService<AlbumBestSeller
 
     @Inject
     AlbumBestSellerRepository albumBestSellerRepository;
+    
+    @Override
+    public ProductType getType() {
+        return ProductType.ALBUM;
+    }
     
     @Override
     public List<AlbumBestSeller> getLatestBestSellers(int size) {
