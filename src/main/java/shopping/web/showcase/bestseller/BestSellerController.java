@@ -7,12 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import shopping.domain.showcase.AlbumBestSeller;
-import shopping.domain.showcase.BookBestSeller;
-import shopping.domain.showcase.MovieBestSeller;
+import shopping.domain.showcase.BestSeller;
 import shopping.service.showcase.bestseller.AlbumBestSellerService;
 import shopping.service.showcase.bestseller.BookBestSellerService;
 import shopping.service.showcase.bestseller.MovieBestSellerService;
@@ -59,48 +58,36 @@ public class BestSellerController {
         return "/bestseller/bestseller_" + client.getClientType().getCode();
     }
     
-    @RequestMapping(value="/showcase/bestseller/book", method=RequestMethod.GET)
-    public String bookBestSeller(@ModelAttribute("condition") BestSellerCondition condition, Client client, Model model) {
+    @RequestMapping(value="/showcase/bestseller/{productType}", method=RequestMethod.GET)
+    public String bookBestSeller(
+            @PathVariable("productType") String productType,
+            @ModelAttribute("condition") BestSellerCondition condition,
+            Client client, Model model) {
+        
         if(condition.isEmpty())
             setBestSellerConditionDefaultValue(client, condition);
         
-        Page<BookBestSeller> page = bookBestSellerService
-                .findBestSellers(condition.getYear(), condition.getMonth(), condition.getPage(), condition.getSize());
+        Page<? extends BestSeller<?>> page = null;
+        
+        if("book".equals(productType)) {
+            page = bookBestSellerService.findBestSellers(
+                    condition.getYear(), condition.getMonth(), condition.getPage(), condition.getSize());
+        } else if("album".equals(productType)) {
+            page = albumBestSellerService.findBestSellers(
+                    condition.getYear(), condition.getMonth(), condition.getPage(), condition.getSize());
+        } else if("movie".equals(productType)) {
+            page = movieBestSellerService.findBestSellers(
+                    condition.getYear(), condition.getMonth(), condition.getPage(), condition.getSize());
+        } else {
+            throw new IllegalArgumentException(productType + "은 판매하지 않습니다.");
+        }
         
         model.addAttribute("bestSellers", page.getContent());
         model.addAttribute("hasNextPage", page.hasNextPage());
         
-        return "/bestseller/book_" + client.getClientType().getCode();
+        return "/bestseller/" + productType + "_" + client.getClientType().getCode();
     }
 
-    @RequestMapping(value="/showcase/bestseller/album", method=RequestMethod.GET)
-    public String albumBestSeller(BestSellerCondition condition, Client client, Model model) {
-        if(condition.isEmpty())
-            setBestSellerConditionDefaultValue(client, condition);
-        
-        Page<AlbumBestSeller> page = albumBestSellerService
-                .findBestSellers(condition.getYear(), condition.getMonth(), condition.getPage(), condition.getSize());
-        
-        model.addAttribute("bestSellers", page.getContent());
-        model.addAttribute("hasNextPage", page.hasNextPage());
-        
-        return "/bestseller/album_" + client.getClientType().getCode();
-    }
-    
-    @RequestMapping(value="/showcase/bestseller/movie", method=RequestMethod.GET)
-    public String movieBestSeller(BestSellerCondition condition, Client client, Model model) {
-        if(condition.isEmpty())
-            setBestSellerConditionDefaultValue(client, condition);
-            
-        Page<MovieBestSeller> page = movieBestSellerService
-                .findBestSellers(condition.getYear(), condition.getMonth(), condition.getPage(), condition.getSize());
-        
-        model.addAttribute("bestSellers", page.getContent());
-        model.addAttribute("hasNextPage", page.hasNextPage());
-        
-        return "/bestseller/movie_" + client.getClientType().getCode();
-    }
-    
     private void setBestSellerConditionDefaultValue(Client client, BestSellerCondition condition) {
         int defaultBestsellerSize = phoneDefaultBestsellerSize;
         
