@@ -1,0 +1,14 @@
+*~
+.DS_Store
+
+# maven build dir
+target
+
+# eclipse ide files
+.classpath
+.project
+.settings
+.springBeans
+
+# jrebel config file
+rebel.xml
