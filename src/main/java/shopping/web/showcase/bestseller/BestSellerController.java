@@ -72,8 +72,6 @@ public class BestSellerController {
         
         if(condition.isEmpty())
             setBestSellerConditionDefaultValue(client, condition);
-        else
-            throw new RuntimeException("2개로 만족하세요!");
         
         Page<BookBestSeller> page = bookBestSellerService
                 .findBestSellers(condition.getYear(), condition.getMonth(), condition.getPage(), condition.getSize());
