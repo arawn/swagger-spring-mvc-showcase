@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import shopping.domain.product.ProductType;
 import shopping.domain.showcase.BestSeller;
 import shopping.service.showcase.bestseller.AlbumBestSellerService;
 import shopping.service.showcase.bestseller.BookBestSellerService;
@@ -60,7 +61,7 @@ public class BestSellerController {
     
     @RequestMapping(value="/showcase/bestseller/{productType}", method=RequestMethod.GET)
     public String bookBestSeller(
-            @PathVariable("productType") String productType,
+            @PathVariable("productType") ProductType productType,
             @ModelAttribute("condition") BestSellerCondition condition,
             Client client, Model model) {
         
@@ -68,14 +69,14 @@ public class BestSellerController {
             setBestSellerConditionDefaultValue(client, condition);
         
         Page<? extends BestSeller<?>> page = null;
-        
-        if("book".equals(productType)) {
+
+        if(productType.equals(ProductType.BOOK)) {
             page = bookBestSellerService.findBestSellers(
                     condition.getYear(), condition.getMonth(), condition.getPage(), condition.getSize());
-        } else if("album".equals(productType)) {
+        } else if(productType.equals(ProductType.ALBUM)) {
             page = albumBestSellerService.findBestSellers(
                     condition.getYear(), condition.getMonth(), condition.getPage(), condition.getSize());
-        } else if("movie".equals(productType)) {
+        } else if(productType.equals(ProductType.MOVIE)) {
             page = movieBestSellerService.findBestSellers(
                     condition.getYear(), condition.getMonth(), condition.getPage(), condition.getSize());
         } else {
@@ -85,7 +86,7 @@ public class BestSellerController {
         model.addAttribute("bestSellers", page.getContent());
         model.addAttribute("hasNextPage", page.hasNextPage());
         
-        return "/bestseller/" + productType + "_" + client.getClientType().getCode();
+        return "/bestseller/" + productType.getCode() + "_" + client.getClientType().getCode();
     }
 
     private void setBestSellerConditionDefaultValue(Client client, BestSellerCondition condition) {

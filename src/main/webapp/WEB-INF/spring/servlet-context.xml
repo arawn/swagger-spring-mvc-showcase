@@ -18,6 +18,7 @@
         <property name="order" value="0" />
     </bean> 
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="webBindingInitializer" ref="configurableWebBindingInitializer" />
         <property name="customArgumentResolvers">
             <list>
                 <bean class="shopping.web.client.ClientArgumentsResolver" />
@@ -25,7 +26,19 @@
         </property>
         <property name="order" value="0" />
     </bean>
-
+    
+    <bean id="configurableWebBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+        <property name="conversionService">
+            <bean class="org.springframework.context.support.ConversionServiceFactoryBean">
+                <property name="converters">
+                    <list>
+                        <bean class="shopping.domain.product.ProductTypeConverter" />
+                    </list>
+                </property>
+            </bean>        
+        </property>
+    </bean>
+    
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
         <property name="defaultContentType" value="text/html" />
         <property name="mediaTypes">
@@ -56,7 +69,8 @@
             </props>
         </property>
         <property name="defaultErrorView" value="/error/default" />
-        <property name="defaultStatusCode" value="500" /> 
+        <property name="defaultStatusCode" value="500" />
+        <property name="warnLogCategory" value="shopping.web" /> 
         <property name="order" value="1" />
     </bean>        
     
