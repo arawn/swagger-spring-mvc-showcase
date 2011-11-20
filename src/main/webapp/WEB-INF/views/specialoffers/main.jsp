@@ -14,8 +14,8 @@
             var colorText = $('#color option:selected').html();
             var quantity = $('#quantity').val();
             
-            var orderHtml = '색상: ' + colorText + '<input type="hidden" name="color" value="' + colorCode + '" /> / ';
-            orderHtml += '수량: <input name="quantity" value="' + quantity + '" /> - ';
+            var orderHtml = '색상: ' + colorText + '<input type="hidden" name="colors" value="' + colorCode + '" /> / ';
+            orderHtml += '수량: <input name="quantitys" value="' + quantity + '" /> - ';
             orderHtml += '<input type="button" class="orderRemoveButton" value="취소" />';
             
             var liEl = $('<li/>').html(orderHtml).appendTo('#orders');

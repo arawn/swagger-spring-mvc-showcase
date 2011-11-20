@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,20 +19,28 @@
 <h3>주문확인</h3>
 <form id='formOrder' action='<c:url value="/specialoffers/orderconfirmation" />' method='post'>
 - 주문상품 목록:
-<ul id="orders"></ul>
+<ul id="orders">
+<c:forEach items="${order.colors}" var="color" varStatus="status">
+<li id='order_${status.index}'>
+	색상: <input type="text" name="colors" value="${color}" readonly="readonly" size="10" /> /
+	수량: <input name="quantitys" value="${order.quantitys[status.index]}" size="10" /> - 
+	<input type="button" onclick="$('#order_${status.index}').remove();" value="취소" />
+</li>
+</c:forEach>
+</ul>
 - 배송지 정보<br />
 <table>
 <tr>
     <td width="100px" align="right">받는 사람:</td>
-    <td><input type="text" name="name" value="" /></td>
+    <td><input type="text" name="name" value="${order.name}" /></td>
 </tr>
 <tr>
     <td width="100px" align="right">연락처:</td>
-    <td><input type="text" name="telno" value="" /></td>
+    <td><input type="text" name="telno" value="${order.telno}" /></td>
 </tr>
 <tr>
     <td width="100px" align="right">받을 주소:</td>
-    <td><input type="text" name="address" value="" size="50" /></td>
+    <td><input type="text" name="address" value="${order.address}" size="50" /></td>
 </tr>
 </table>
 <input type="submit" value="수정" style="width:50%;" /><input type="button" id="btnOrder" value="결제" style="width:50%;" disabled="disabled" />
