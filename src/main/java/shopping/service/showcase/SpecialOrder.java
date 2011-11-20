@@ -2,13 +2,16 @@ package shopping.service.showcase;
 
 import java.util.List;
 
+import org.springframework.util.AutoPopulatingList;
+
 public class SpecialOrder {
     
     private String name;
     private String telno;
     private String address;
     
-    private List<OrderItem> items;
+    // 자동으로 자라주세요!
+    private List<OrderItem> items = new AutoPopulatingList<OrderItem>(OrderItem.class);
 
     public String getName() {
         return name;

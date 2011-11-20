@@ -3,6 +3,8 @@ package shopping.web.showcase;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,6 +14,12 @@ import shopping.service.showcase.SpecialOrder;
 @Controller
 @RequestMapping("/specialoffers/*")
 public class SpecialOffersController {
+    
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        // 2.5.x 시절로 돌아가기 위해서 강제로 기능 정지!
+        binder.setAutoGrowNestedPaths(false);
+    }
     
     @Inject
     SpecialOffersService specialOffersService;
