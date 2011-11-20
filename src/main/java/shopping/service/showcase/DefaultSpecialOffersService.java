@@ -12,15 +12,8 @@ public class DefaultSpecialOffersService implements SpecialOffersService {
         
         // 이름 / 연락처 / 주소 저장.
         
-        if(order.getColors() != null) {
-            for(int idx=0; idx<order.getColors().length; idx++) {
-                // 색상, 주문수량 저장
-                String color = order.getColors()[idx];
-                int quantity = order.getQuantitys()[idx];
-                
-                System.out.println(String.format("색상: %s, 수량: %d", color, quantity));
-            }
-        }        
+        for(OrderItem item : order.getItems())
+            System.out.println(String.format("색상: %s, 수량: %d", item.getColor(), item.getQuantity()));
     }
 
 }
