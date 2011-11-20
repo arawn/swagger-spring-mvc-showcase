@@ -20,10 +20,10 @@
 <form id='formOrder' action='<c:url value="/specialoffers/orderconfirmation" />' method='post'>
 - 주문상품 목록:
 <ul id="orders">
-<c:forEach items="${order.colors}" var="color" varStatus="status">
+<c:forEach items="${order.items}" var="item" varStatus="status">
 <li id='order_${status.index}'>
-	색상: <input type="text" name="colors" value="${color}" readonly="readonly" size="10" /> /
-	수량: <input name="quantitys" value="${order.quantitys[status.index]}" size="10" /> - 
+	색상: <input type="text" name="items[${status.index}].color" value="${item.color}" readonly="readonly" size="10" /> /
+	수량: <input name="items[${status.index}].quantity" value="${item.quantity}" size="10" /> - 
 	<input type="button" onclick="$('#order_${status.index}').remove();" value="취소" />
 </li>
 </c:forEach>

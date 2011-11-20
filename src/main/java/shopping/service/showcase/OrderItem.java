@@ -5,6 +5,9 @@ public class OrderItem {
     private String color;
     private int quantity;
     
+    public OrderItem() {
+    }
+    
     public OrderItem(String color, int quantity) {
         this.color = color;
         this.quantity = quantity;

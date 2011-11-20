@@ -1,6 +1,5 @@
 package shopping.service.showcase;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SpecialOrder {
@@ -9,9 +8,8 @@ public class SpecialOrder {
     private String telno;
     private String address;
     
-    private String[] colors;
-    private int[] quantitys;
-    
+    private List<OrderItem> items;
+
     public String getName() {
         return name;
     }
@@ -30,33 +28,11 @@ public class SpecialOrder {
     public void setAddress(String address) {
         this.address = address;
     }
-    public String[] getColors() {
-        return colors;
-    }
-    public void setColors(String[] colors) {
-        this.colors = colors;
-    }
-    public int[] getQuantitys() {
-        return quantitys;
-    }
-    public void setQuantitys(int[] quantitys) {
-        this.quantitys = quantitys;
-    }
-    
     public List<OrderItem> getItems() {
-        List<OrderItem> items = new ArrayList<OrderItem>();
-        
-        if(getColors() != null) {
-            for(int idx=0; idx<getColors().length; idx++) {
-                // 색상, 주문수량 저장
-                String color = getColors()[idx];
-                int quantity = getQuantitys()[idx];
-                
-                items.add(new OrderItem(color, quantity));
-            }
-        }
-        
         return items;
+    }
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
     }
 
 }
