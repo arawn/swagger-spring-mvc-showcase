@@ -19,7 +19,7 @@
 <a href='<c:url value="/showcase/bestseller/album" />'>음반</a> | 
 <a href='<c:url value="/showcase/bestseller/movie" />'>영화</a>
 <hr />
-<h5>책 베스트셀러 TOP 3</h5>
+<h5>책 베스트셀러 TOP 5</h5>
 <ul id="bestSellers">
 <c:forEach items="${bookBestSellers}" var="bestSeller">
 <li>${bestSeller.rank}위 - ${bestSeller.product.title}</li>

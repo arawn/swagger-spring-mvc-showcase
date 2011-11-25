@@ -9,6 +9,3 @@ target
 .project
 .settings
 .springBeans
-
-# jrebel config file
-rebel.xml
