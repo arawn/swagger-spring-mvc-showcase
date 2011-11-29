@@ -25,7 +25,8 @@ public class SpecialOffersController {
     SpecialOffersService specialOffersService;
     
     @RequestMapping    
-    public void main() {
+    public String main() {
+        return "/specialoffers/main";
     }
     
     @RequestMapping    

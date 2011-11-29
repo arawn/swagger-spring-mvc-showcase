@@ -19,10 +19,8 @@
     </bean> 
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <property name="webBindingInitializer" ref="configurableWebBindingInitializer" />
-        <property name="customArgumentResolvers">
-            <list>
-                <bean class="shopping.web.client.ClientArgumentsResolver" />
-            </list>
+        <property name="customArgumentResolver">
+            <bean class="shopping.web.client.ClientArgumentsResolver" />
         </property>
         <property name="order" value="0" />
     </bean>
@@ -55,13 +53,13 @@
     </bean>
     
     <bean class="shopping.web.view.ClientViewResolver">
-        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="prefix" value="/WEB-INF/views" />
         <property name="suffix" value=".jsp" />
         <property name="order" value="2" />
     </bean>
     
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="prefix" value="/WEB-INF/views" />
         <property name="suffix" value=".jsp" />
         <property name="order" value="3" />
     </bean>
